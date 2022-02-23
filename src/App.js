@@ -1,8 +1,7 @@
-import "./App.css";
-import Embed from "./Embed";
+import Embed from "./components/Embed";
 
-function App() {
-  return <Embed />;
+function App(props) {
+  return <Embed {...props} />;
 }
 
 export default App;
