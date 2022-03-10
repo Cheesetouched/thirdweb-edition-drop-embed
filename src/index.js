@@ -5,18 +5,20 @@ import { ThirdwebWeb3Provider } from "@3rdweb/hooks";
 
 import "./index.css";
 import App from "./App";
+import { getChainData } from "./utils/helper";
 
-const supportedChainIds = [137];
+const contractData = {
+  chainId: 137,
+};
+const supportedChainIds = [1, 137];
 
 const connectors = {
   injected: {},
   walletconnect: {
+    chainId: contractData.chainId,
     rpc: {
-      1: "https://polygon-mainnet.infura.io/v3/1419eeee49ac441183a8bdbe716d232f",
-      4: "https://polygon-mainnet.infura.io/v3/1419eeee49ac441183a8bdbe716d232f",
-      137: "https://polygon-mainnet.infura.io/v3/1419eeee49ac441183a8bdbe716d232f",
-      80001:
-        "https://polygon-mainnet.infura.io/v3/1419eeee49ac441183a8bdbe716d232f",
+      [contractData.chainId]:
+        contractData.rpcUrl || getChainData(contractData.chainId).rpcUrl,
     },
   },
   walletlink: {
@@ -34,7 +36,7 @@ ReactDOM.render(
     >
       <ChakraProvider>
         <App
-          contractChainId={137}
+          contractChainId
           height={600}
           imageHeight={178}
           imageWidth={178}

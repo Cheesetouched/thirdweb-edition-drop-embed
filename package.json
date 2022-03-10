@@ -4,6 +4,7 @@
   "private": false,
   "dependencies": {
     "@3rdweb/hooks": "^1.9.2",
+    "@3rdweb/sdk": "^1.41.2",
     "@chakra-ui/react": "^1.8.5",
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
