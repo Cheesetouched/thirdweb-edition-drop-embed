@@ -1,5 +1,5 @@
 {
-  "name": "thirdweb-embed",
+  "name": "thirdweb-bundle-drop-embed",
   "version": "0.1.0",
   "private": false,
   "dependencies": {
@@ -8,6 +8,7 @@
     "@chakra-ui/react": "^1.8.5",
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
+    "ethers": "^5.6.0",
     "framer-motion": "^6.2.6",
     "process": "^0.11.10",
     "react": "^17.0.2",
