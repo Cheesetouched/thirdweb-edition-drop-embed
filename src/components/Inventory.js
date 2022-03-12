@@ -1,4 +1,4 @@
-import { Flex, Image, Text } from "@chakra-ui/react";
+import { Flex, Image, Text, VStack } from "@chakra-ui/react";
 
 import ConnectWallet from "./ConnectWallet";
 
@@ -8,11 +8,12 @@ export default function Inventory({
   inventoryImageHeight,
   inventoryImageWidth,
   provider,
+  tokenBalance,
   tokenDetails,
 }) {
   return (
     <>
-      {provider && (
+      {provider && tokenBalance > 0 && (
         <Flex direction="column">
           <Flex
             align="center"
@@ -42,6 +43,16 @@ export default function Inventory({
             {tokenDetails?.metadata?.name}
           </Text>
         </Flex>
+      )}
+
+      {provider && tokenBalance === 0 && (
+        <VStack>
+          <Text fontSize="18" fontWeight="bold">
+            You don't own this NFT yet :(
+          </Text>
+
+          <Text fontSize="16">Once you do, it'll show up here.</Text>
+        </VStack>
       )}
 
       {!provider && (

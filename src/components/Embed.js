@@ -156,6 +156,7 @@ function Embed({
             inventoryImageHeight={inventoryImageHeight}
             inventoryImageWidth={inventoryImageWidth}
             provider={provider}
+            tokenBalance={tokenBalance}
             tokenDetails={tokenDetails}
           />
         )}

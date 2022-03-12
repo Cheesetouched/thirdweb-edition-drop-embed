@@ -35,6 +35,7 @@ export default function Mint({
         title: "Minted successfully!",
       });
     } catch (error) {
+      console.log(error);
       toast({
         isClosable: true,
         status: "error",
