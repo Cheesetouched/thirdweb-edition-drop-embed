@@ -1,8 +1,8 @@
 import { ethers } from "ethers";
 import { useWeb3 } from "@3rdweb/hooks";
 import { ThirdwebSDK } from "@3rdweb/sdk";
-import { useEffect, useMemo, useState } from "react";
 import { Center, Flex, useToast } from "@chakra-ui/react";
+import { useCallback, useState, useEffect, useMemo } from "react";
 
 import Mint from "./Mint";
 import Header from "./Header";
@@ -29,6 +29,7 @@ function Embed({
   const toast = useToast();
   const [mode, setMode] = useState("mint");
   const [loading, setLoading] = useState(true);
+  const [tokenBalance, setTokenBalance] = useState(null);
   const [tokenDetails, setTokenDetails] = useState(null);
   const [claimConditions, setClaimConditions] = useState(null);
   const { address, connectWallet, disconnectWallet, error, provider } =
@@ -48,22 +49,37 @@ function Embed({
     return null;
   }, [contract, sdk]);
 
+  const getDropDetails = useCallback(async () => {
+    const defaultProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
+    const sdk = new ThirdwebSDK(defaultProvider);
+    const dropModule = sdk.getBundleDropModule(contract);
+
+    const [tokenDetails, claimConditions] = await Promise.all([
+      dropModule.get(tokenId),
+      dropModule.getAllClaimConditions(tokenId),
+    ]);
+
+    setLoading(false);
+    setTokenDetails(tokenDetails);
+    setClaimConditions(claimConditions);
+  }, [contract, rpcUrl, tokenId]);
+
+  const getTokenBalance = useCallback(async () => {
+    const balance = await dropModule.balance(tokenId);
+    setTokenBalance(balance.toNumber());
+  }, [dropModule, tokenId]);
+
+  useEffect(() => {
+    getDropDetails();
+  }, [getDropDetails]);
+
   useEffect(() => {
     (async () => {
-      const defaultProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
-      const sdk = new ThirdwebSDK(defaultProvider);
-      const dropModule = sdk.getBundleDropModule(contract);
-
-      const [tokenDetails, claimConditions] = await Promise.all([
-        dropModule.get(tokenId),
-        dropModule.getAllClaimConditions(tokenId),
-      ]);
-
-      setLoading(false);
-      setTokenDetails(tokenDetails);
-      setClaimConditions(claimConditions);
+      if (dropModule) {
+        getTokenBalance();
+      }
     })();
-  }, [contract, rpcUrl, tokenId]);
+  }, [dropModule, getTokenBalance]);
 
   useEffect(() => {
     if (typeof chainId !== "number") {
@@ -71,17 +87,17 @@ function Embed({
         title: "chainId is not provided",
         status: "error",
       });
-    } else if (contract === undefined) {
+    } else if (contract === undefined || contract === null) {
       toast({
         title: "contract is not provided",
         status: "error",
       });
-    } else if (rpcUrl === undefined) {
+    } else if (rpcUrl === undefined || rpcUrl === null) {
       toast({
         title: "rpcUrl is not provided",
         status: "error",
       });
-    } else if (tokenId === undefined) {
+    } else if (tokenId === undefined || tokenId === null) {
       toast({
         title: "tokenId is not provided",
         status: "error",
@@ -103,12 +119,11 @@ function Embed({
         address={address}
         claimConditions={claimConditions}
         disconnectWallet={disconnectWallet}
-        dropModule={dropModule}
         mode={mode}
         provider={provider}
         setMode={setMode}
         toast={toast}
-        tokenId={tokenId}
+        tokenBalance={tokenBalance}
       />
 
       <Center flex={1} paddingX="28px">
@@ -119,13 +134,18 @@ function Embed({
             chainId={chainId}
             claimConditions={claimConditions}
             connectFunction={connectWallet}
+            dropModule={dropModule}
             error={error}
+            getDropDetails={getDropDetails}
+            getTokenBalance={getTokenBalance}
             hideDescription={hideDescription}
             hideTitle={hideTitle}
             imageHeight={imageHeight}
             imageWidth={imageWidth}
             provider={provider}
+            toast={toast}
             tokenDetails={tokenDetails}
+            tokenId={tokenId}
           />
         )}
 

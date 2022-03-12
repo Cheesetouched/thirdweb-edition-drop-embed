@@ -10,10 +10,12 @@ import { getChainData } from "./utils/helper";
 const dropOptions = {
   appName: "thirdweb - demo",
   appUrl: "https://thirdweb.com",
-  chainId: 137,
-  contract: "0x048B0556bf62D4c579b93eD5b7Bb75220AfBca68",
+  chainId: 80001,
+  contract: null,
   darkMode: false,
+  rpcUrl: null,
   tokenId: 0,
+  transactionRelayerUrl: null,
 };
 
 const supportedChainIds = [dropOptions.chainId];
@@ -46,6 +48,7 @@ ReactDOM.render(
           contract={dropOptions.contract}
           tokenId={dropOptions.tokenId}
           rpcUrl={connectors.walletconnect.rpc[dropOptions.chainId]}
+          transactionRelayerUrl={dropOptions.transactionRelayerUrl}
         />
       </ChakraProvider>
     </ThirdwebWeb3Provider>

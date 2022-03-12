@@ -24,7 +24,7 @@ export default function WalletPopup({
     if (!provider) {
       onClose();
     }
-  }, [provider]);
+  }, [onClose, provider]);
 
   return (
     <>

@@ -2,7 +2,7 @@ import { Center } from "@chakra-ui/react";
 
 import Embed from "./components/Embed";
 
-function App({ chainId, contract, rpcUrl, tokenId }) {
+function App({ chainId, contract, rpcUrl, tokenId, transactionRelayerUrl }) {
   return (
     <Center bgColor="#F5F6F8" height="100vh">
       <Embed
@@ -15,6 +15,7 @@ function App({ chainId, contract, rpcUrl, tokenId }) {
         imageWidth={178}
         rpcUrl={rpcUrl}
         tokenId={tokenId}
+        transactionRelayerUrl={transactionRelayerUrl}
         width={600}
       />
     </Center>

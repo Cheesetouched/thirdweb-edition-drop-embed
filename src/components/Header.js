@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { IoWalletOutline } from "react-icons/io5";
 import { Button, Divider, Flex, useDisclosure } from "@chakra-ui/react";
 
@@ -9,24 +8,13 @@ export default function Header({
   address,
   claimConditions,
   disconnectWallet,
-  dropModule,
   mode,
   provider,
   setMode,
   toast,
-  tokenId,
+  tokenBalance,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [tokenBalance, setTokenBalance] = useState(null);
-
-  useEffect(() => {
-    (async () => {
-      if (dropModule) {
-        const balance = await dropModule.balance(tokenId);
-        setTokenBalance(balance.toNumber());
-      }
-    })();
-  }, [dropModule, tokenId]);
 
   return (
     <Flex direction="column">
