@@ -17,13 +17,15 @@ function Embed({
   hideDescription = false,
   hideThirdwebLogo = false,
   hideTitle = false,
-  inventoryImageHeight,
-  inventoryImageWidth,
   imageHeight,
   imageWidth,
+  inventoryImageHeight,
+  inventoryImageWidth,
+  mintAllowedPerWallet,
   rpcUrl,
+  showInventory,
   tokenId,
-  transactionRelayerUrl = null,
+  relayer = null,
   width,
 }) {
   const toast = useToast();
@@ -37,10 +39,12 @@ function Embed({
 
   const sdk = useMemo(() => {
     if (provider) {
-      return new ThirdwebSDK(provider.getSigner(), { transactionRelayerUrl });
+      return new ThirdwebSDK(provider.getSigner(), {
+        transactionRelayerUrl: relayer,
+      });
     }
     return null;
-  }, [provider, transactionRelayerUrl]);
+  }, [provider, relayer]);
 
   const dropModule = useMemo(() => {
     if (sdk) {
@@ -82,7 +86,7 @@ function Embed({
   }, [dropModule, getTokenBalance]);
 
   useEffect(() => {
-    if (typeof chainId !== "number") {
+    if (chainId === undefined || chainId === null) {
       toast({
         title: "chainId is not provided",
         status: "error",
@@ -122,6 +126,7 @@ function Embed({
         mode={mode}
         provider={provider}
         setMode={setMode}
+        showInventory={showInventory}
         toast={toast}
         tokenBalance={tokenBalance}
       />
@@ -142,6 +147,7 @@ function Embed({
             hideTitle={hideTitle}
             imageHeight={imageHeight}
             imageWidth={imageWidth}
+            mintAllowedPerWallet={mintAllowedPerWallet}
             provider={provider}
             toast={toast}
             tokenDetails={tokenDetails}
@@ -149,7 +155,7 @@ function Embed({
           />
         )}
 
-        {!loading && mode === "inventory" && (
+        {!loading && mode === "inventory" && showInventory && (
           <Inventory
             connectFunction={connectWallet}
             error={error}

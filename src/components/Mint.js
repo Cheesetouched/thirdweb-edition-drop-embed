@@ -17,6 +17,7 @@ export default function Mint({
   hideTitle,
   imageHeight,
   imageWidth,
+  mintAllowedPerWallet,
   provider,
   toast,
   tokenDetails,
@@ -27,13 +28,22 @@ export default function Mint({
   const mint = useCallback(async () => {
     setMinting(true);
     try {
-      await dropModule.claim(tokenId, 1);
-      await Promise.all([getDropDetails(), getTokenBalance()]);
-      toast({
-        isClosable: true,
-        status: "success",
-        title: "Minted successfully!",
-      });
+      const balance = await dropModule.balance(tokenId);
+      if (balance.toNumber() >= mintAllowedPerWallet) {
+        toast({
+          isClosable: true,
+          status: "error",
+          title: "You've already minted!",
+        });
+      } else {
+        await dropModule.claim(tokenId, 1);
+        await Promise.all([getDropDetails(), getTokenBalance()]);
+        toast({
+          isClosable: true,
+          status: "success",
+          title: "Minted successfully!",
+        });
+      }
     } catch (error) {
       console.log(error);
       toast({
@@ -43,7 +53,14 @@ export default function Mint({
       });
     }
     setMinting(false);
-  }, [dropModule, getDropDetails, getTokenBalance, toast, tokenId]);
+  }, [
+    dropModule,
+    getDropDetails,
+    getTokenBalance,
+    mintAllowedPerWallet,
+    toast,
+    tokenId,
+  ]);
 
   return (
     <Flex align="center" direction="column">

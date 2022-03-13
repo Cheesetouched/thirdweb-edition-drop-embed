@@ -1,7 +1,13 @@
 import { useSwitchNetwork } from "@3rdweb/hooks";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { HiOutlineSwitchHorizontal } from "react-icons/hi";
-import { Alert, AlertDescription, Button, Text, VStack } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertDescription,
+  Button,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 
 import { getChainData } from "../utils/helper";
 

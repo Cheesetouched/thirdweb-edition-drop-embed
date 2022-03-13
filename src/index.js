@@ -1,25 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Center } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { ThirdwebWeb3Provider } from "@3rdweb/hooks";
 
 import "./index.css";
-import App from "./App";
-import { getChainData } from "./utils/helper";
+import Embed from "./components/Embed";
+import { getChainData, processQueryParams } from "./utils/helper";
 
-const dropOptions = {
-  appName: "thirdweb - demo",
-  appUrl: "https://thirdweb.com",
-  chainId: 80001,
-  contract: null,
-  darkMode: false,
-  rpcUrl: null,
-  tokenId: 0,
-  transactionRelayerUrl: null,
-};
-
+const params = new URLSearchParams(window.location.search);
+const dropOptions = processQueryParams(params);
 const supportedChainIds = [dropOptions.chainId];
-
 const connectors = {
   injected: {},
   walletconnect: {
@@ -30,9 +21,9 @@ const connectors = {
     },
   },
   walletlink: {
-    appName: dropOptions.appName,
-    darkMode: dropOptions.darkMode,
-    url: dropOptions.appUrl,
+    appName: dropOptions.walletlinkAppName,
+    darkMode: dropOptions.walletlinkDarkMode,
+    url: dropOptions.walletlinkAppUrl,
   },
 };
 
@@ -43,13 +34,9 @@ ReactDOM.render(
       supportedChainIds={supportedChainIds}
     >
       <ChakraProvider>
-        <App
-          chainId={dropOptions.chainId}
-          contract={dropOptions.contract}
-          tokenId={dropOptions.tokenId}
-          rpcUrl={connectors.walletconnect.rpc[dropOptions.chainId]}
-          transactionRelayerUrl={dropOptions.transactionRelayerUrl}
-        />
+        <Center bgColor="#F5F6F8" height="100vh">
+          <Embed {...dropOptions} />
+        </Center>
       </ChakraProvider>
     </ThirdwebWeb3Provider>
   </React.StrictMode>,

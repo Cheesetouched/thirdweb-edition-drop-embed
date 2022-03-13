@@ -58,7 +58,7 @@ export default function Inventory({
       {!provider && (
         <Flex direction="column">
           <Text fontSize={12} fontWeight="bold">
-            Connect your wallet to see your owned drops
+            Connect your wallet to see your inventory
           </Text>
 
           <ConnectWallet
