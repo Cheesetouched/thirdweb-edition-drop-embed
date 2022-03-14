@@ -1,6 +1,6 @@
 {
   "name": "thirdweb-bundle-drop-embed",
-  "homepage": ".",
+  "homepage": "./",
   "version": "0.1.0",
   "private": false,
   "dependencies": {
