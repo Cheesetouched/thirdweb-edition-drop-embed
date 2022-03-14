@@ -30,7 +30,7 @@ export default function Inventory({
           >
             <Image
               alt="preview"
-              fallbackSrc={fallbackImage ? fallbackImage : "/drop.svg"}
+              fallbackSrc={fallbackImage ? fallbackImage : "./drop.svg"}
               src={tokenDetails?.metadata?.image}
             />
           </Flex>

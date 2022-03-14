@@ -51,7 +51,7 @@ export default function ConnectWallet({ connectFunction, error, provider }) {
             flexGrow={1}
             fontSize="xs"
             isLoading={connecting === "metamask"}
-            leftIcon={<Image boxSize={6} src="/metamask.svg" />}
+            leftIcon={<Image boxSize={6} src="./metamask.svg" />}
             onClick={() => {
               setConnecting("metamask");
               connectFunction("injected");
@@ -66,7 +66,7 @@ export default function ConnectWallet({ connectFunction, error, provider }) {
             flexGrow={1}
             fontSize="xs"
             isLoading={connecting === "walletconnect"}
-            leftIcon={<Image boxSize={6} src="/walletconnect.svg" />}
+            leftIcon={<Image boxSize={6} src="./walletconnect.svg" />}
             onClick={() => {
               setConnecting("walletconnect");
               connectFunction("walletconnect");
@@ -81,7 +81,7 @@ export default function ConnectWallet({ connectFunction, error, provider }) {
             flexGrow={1}
             fontSize="xs"
             isLoading={connecting === "walletlink"}
-            leftIcon={<Image boxSize={6} src="/coinbase.svg" />}
+            leftIcon={<Image boxSize={6} src="./coinbase.svg" />}
             onClick={() => {
               setConnecting("walletlink");
               connectFunction("walletlink");

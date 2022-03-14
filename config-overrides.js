@@ -12,6 +12,5 @@ module.exports = function override(config) {
       Buffer: ["buffer", "Buffer"],
     })
   );
-  config.output.publicPath = "./";
   return config;
 };

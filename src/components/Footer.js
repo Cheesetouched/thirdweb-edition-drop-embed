@@ -24,7 +24,7 @@ export default function Footer({ footerImage, footerUrl, hideThirdwebLogo }) {
                   "_blank"
                 )
               }
-              src={footerImage ? footerImage : "/thirdweb.svg"}
+              src={footerImage ? footerImage : "./thirdweb.svg"}
             />
           </Flex>
         </Flex>
