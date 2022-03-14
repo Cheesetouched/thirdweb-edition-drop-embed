@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Center } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { ThirdwebWeb3Provider } from "@3rdweb/hooks";
 
@@ -34,9 +33,7 @@ ReactDOM.render(
       supportedChainIds={supportedChainIds}
     >
       <ChakraProvider>
-        <Center bgColor="#F5F6F8" height="100vh">
-          <Embed {...dropOptions} />
-        </Center>
+        <Embed {...dropOptions} />
       </ChakraProvider>
     </ThirdwebWeb3Provider>
   </React.StrictMode>,

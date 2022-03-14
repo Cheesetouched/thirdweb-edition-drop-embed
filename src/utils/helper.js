@@ -74,7 +74,7 @@ export const processQueryParams = (params) => {
     fallbackImage: params.get("fallbackImage"),
     footerImage: params.get("footerImage"),
     footerUrl: params.get("footerUrl"),
-    height: getInt("height") || 600,
+    height: getInt("height") || "100vh",
     hideClaimCount: getBool("hideClaimCount", false),
     hideDescription: getBool("hideDescription", false),
     hideThirdwebLogo: getBool("hideThirdwebLogo", false),
@@ -98,6 +98,6 @@ export const processQueryParams = (params) => {
     walletlinkAppName: params.get("walletlinkAppName") || "test",
     walletlinkAppUrl: params.get("walletlinkAppUrl") || "https://test.com",
     walletlinkDarkMode: getBool("walletlinkDarkMode", true),
-    width: parseInt(params.get("width")) || 600,
+    width: parseInt(params.get("width")) || "100vw",
   };
 };
