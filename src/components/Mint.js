@@ -101,7 +101,7 @@ export default function Mint({
         </Text>
       )}
 
-      {error?.name !== "UnsupportedChainIdError" && provider && (
+      {!error?.message.toLowerCase().includes("unsupported") && provider && (
         <Button
           _active={{
             backgroundColor: "#007EC5",
@@ -120,7 +120,7 @@ export default function Mint({
         </Button>
       )}
 
-      {error?.name !== "UnsupportedChainIdError" && !provider && (
+      {!error?.message.toLowerCase().includes("unsupported") && !provider && (
         <ConnectWallet
           connectFunction={connectFunction}
           error={error}
@@ -128,12 +128,12 @@ export default function Mint({
         />
       )}
 
-      {error?.name === "UnsupportedChainIdError" && (
+      {error?.message.toLowerCase().includes("unsupported") && (
         <WrongNetwork shouldSwitchTo={chainId} />
       )}
 
       {!hideClaimCount &&
-        error?.name !== "UnsupportedChainIdError" &&
+        !error?.message.toLowerCase().includes("unsupported") &&
         claimConditions && (
           <Text
             color="#00742E"
