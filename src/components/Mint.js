@@ -9,16 +9,23 @@ export default function Mint({
   chainId,
   claimConditions,
   connectFunction,
+  description,
   dropModule,
   error,
+  fallbackImage,
   getDropDetails,
   getTokenBalance,
+  hideClaimCount,
   hideDescription,
   hideTitle,
+  imageBorderRadius,
   imageHeight,
   imageWidth,
   mintAllowedPerWallet,
+  mintText,
   provider,
+  relayer,
+  title,
   toast,
   tokenDetails,
   tokenId,
@@ -68,7 +75,7 @@ export default function Mint({
         align="center"
         background="#F2F0FF"
         border="1px solid rgba(0,0,0,0.1)"
-        borderRadius="20px"
+        borderRadius={imageBorderRadius}
         flexDirection="column"
         height={imageHeight}
         overflow="hidden"
@@ -77,20 +84,20 @@ export default function Mint({
       >
         <Image
           alt="preview"
-          fallbackSrc="/drop.svg"
+          fallbackSrc={fallbackImage ? fallbackImage : "/drop.svg"}
           src={tokenDetails?.metadata?.image}
         />
       </Flex>
 
       {!hideTitle && (
         <Text color="#272E36" fontSize="28px" fontWeight="bold" marginTop={2.5}>
-          {tokenDetails?.metadata?.name}
+          {title ? title : tokenDetails?.metadata?.name}
         </Text>
       )}
 
       {!hideDescription && (
         <Text color="#272E36" fontWeight={500} noOfLines={2} mt={2.5}>
-          {tokenDetails?.metadata?.description}
+          {description ? description : tokenDetails?.metadata?.description}
         </Text>
       )}
 
@@ -109,7 +116,7 @@ export default function Mint({
           onClick={() => mint()}
           size="md"
         >
-          Mint (Free)
+          {mintText ? mintText : relayer ? "Mint (Free)" : "Mint"}
         </Button>
       )}
 
@@ -125,14 +132,16 @@ export default function Mint({
         <WrongNetwork shouldSwitchTo={chainId} />
       )}
 
-      {error?.name !== "UnsupportedChainIdError" && claimConditions && (
-        <Text
-          color="#00742E"
-          fontSize={14}
-          fontWeight="bold"
-          mt={3}
-        >{`${claimConditions[0].currentMintSupply} / ${claimConditions[0].maxMintSupply} claimed`}</Text>
-      )}
+      {!hideClaimCount &&
+        error?.name !== "UnsupportedChainIdError" &&
+        claimConditions && (
+          <Text
+            color="#00742E"
+            fontSize={14}
+            fontWeight="bold"
+            mt={3}
+          >{`${claimConditions[0].currentMintSupply} / ${claimConditions[0].maxMintSupply} claimed`}</Text>
+        )}
     </Flex>
   );
 }

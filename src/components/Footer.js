@@ -1,6 +1,6 @@
 import { Flex, Image } from "@chakra-ui/react";
 
-export default function Footer({ hideThirdwebLogo }) {
+export default function Footer({ footerImage, footerUrl, hideThirdwebLogo }) {
   return (
     <>
       {!hideThirdwebLogo && (
@@ -12,12 +12,19 @@ export default function Footer({ hideThirdwebLogo }) {
             width="100%"
           >
             <Image
-              boxSize={6}
+              boxSize={7}
               _hover={{ cursor: "pointer" }}
               onClick={() =>
-                window.open("https://thirdweb.com/?utm_source=embed", "_blank")
+                window.open(
+                  `${
+                    footerUrl
+                      ? footerUrl
+                      : "https://thirdweb.com/?utm_source=embed"
+                  }`,
+                  "_blank"
+                )
               }
-              src="/thirdweb.svg"
+              src={footerImage ? footerImage : "/thirdweb.svg"}
             />
           </Flex>
         </Flex>

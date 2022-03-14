@@ -5,8 +5,10 @@ import ConnectWallet from "./ConnectWallet";
 export default function Inventory({
   connectFunction,
   error,
+  fallbackImage,
   inventoryImageHeight,
   inventoryImageWidth,
+  inventoryTitle,
   provider,
   tokenBalance,
   tokenDetails,
@@ -14,7 +16,7 @@ export default function Inventory({
   return (
     <>
       {provider && tokenBalance > 0 && (
-        <Flex direction="column">
+        <Flex align="center" direction="column">
           <Flex
             align="center"
             background="#F2F0FF"
@@ -28,7 +30,7 @@ export default function Inventory({
           >
             <Image
               alt="preview"
-              fallbackSrc="/drop.svg"
+              fallbackSrc={fallbackImage ? fallbackImage : "/drop.svg"}
               src={tokenDetails?.metadata?.image}
             />
           </Flex>
@@ -38,9 +40,9 @@ export default function Inventory({
             color="#272E36"
             fontSize={18}
             fontWeight="bold"
-            mt={3}
+            mt={5}
           >
-            {tokenDetails?.metadata?.name}
+            {inventoryTitle ? inventoryTitle : tokenDetails?.metadata?.name}
           </Text>
         </Flex>
       )}

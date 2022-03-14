@@ -13,17 +13,29 @@ import Inventory from "./Inventory";
 function Embed({
   chainId,
   contract,
+  description,
+  fallbackImage,
+  footerImage,
+  footerUrl,
   height,
-  hideDescription = false,
-  hideThirdwebLogo = false,
-  hideTitle = false,
+  hideClaimCount,
+  hideDescription,
+  hideThirdwebLogo,
+  hideTitle,
   imageHeight,
   imageWidth,
+  imageBorderRadius,
+  inventoryTitle,
   inventoryImageHeight,
   inventoryImageWidth,
   mintAllowedPerWallet,
+  mintText,
   rpcUrl,
+  showBalance,
   showInventory,
+  showRemainingMints,
+  showWallet,
+  title,
   tokenId,
   relayer = null,
   width,
@@ -34,7 +46,7 @@ function Embed({
   const [tokenBalance, setTokenBalance] = useState(null);
   const [tokenDetails, setTokenDetails] = useState(null);
   const [claimConditions, setClaimConditions] = useState(null);
-  const { address, connectWallet, disconnectWallet, error, provider } =
+  const { address, balance, connectWallet, disconnectWallet, error, provider } =
     useWeb3();
 
   const sdk = useMemo(() => {
@@ -121,12 +133,16 @@ function Embed({
     >
       <Header
         address={address}
+        balance={balance?.formatted}
         claimConditions={claimConditions}
         disconnectWallet={disconnectWallet}
         mode={mode}
         provider={provider}
         setMode={setMode}
+        showBalance={showBalance}
         showInventory={showInventory}
+        showRemainingMints={showRemainingMints}
+        showWallet={showWallet}
         toast={toast}
         tokenBalance={tokenBalance}
       />
@@ -139,16 +155,23 @@ function Embed({
             chainId={chainId}
             claimConditions={claimConditions}
             connectFunction={connectWallet}
+            description={description}
             dropModule={dropModule}
             error={error}
+            fallbackImage={fallbackImage}
             getDropDetails={getDropDetails}
             getTokenBalance={getTokenBalance}
+            hideClaimCount={hideClaimCount}
             hideDescription={hideDescription}
             hideTitle={hideTitle}
+            imageBorderRadius={imageBorderRadius}
             imageHeight={imageHeight}
             imageWidth={imageWidth}
             mintAllowedPerWallet={mintAllowedPerWallet}
+            mintText={mintText}
             provider={provider}
+            relayer={relayer}
+            title={title}
             toast={toast}
             tokenDetails={tokenDetails}
             tokenId={tokenId}
@@ -159,8 +182,10 @@ function Embed({
           <Inventory
             connectFunction={connectWallet}
             error={error}
+            fallbackImage={fallbackImage}
             inventoryImageHeight={inventoryImageHeight}
             inventoryImageWidth={inventoryImageWidth}
+            inventoryTitle={inventoryTitle}
             provider={provider}
             tokenBalance={tokenBalance}
             tokenDetails={tokenDetails}
@@ -168,7 +193,11 @@ function Embed({
         )}
       </Center>
 
-      <Footer hideThirdwebLogo={hideThirdwebLogo} />
+      <Footer
+        footerImage={footerImage}
+        footerUrl={footerUrl}
+        hideThirdwebLogo={hideThirdwebLogo}
+      />
     </Flex>
   );
 }

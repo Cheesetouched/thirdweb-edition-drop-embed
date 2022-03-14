@@ -8,16 +8,19 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Text,
 } from "@chakra-ui/react";
 
 import { formatAddress } from "../utils/helper";
 
 export default function WalletPopup({
   address,
+  balance,
   disconnectWallet,
   isOpen,
   onClose,
   provider,
+  showBalance,
   toast,
 }) {
   useEffect(() => {
@@ -35,6 +38,12 @@ export default function WalletPopup({
             <ModalCloseButton />
             <ModalHeader fontSize={16}>Account Details</ModalHeader>
             <ModalBody mb={5}>
+              {showBalance && (
+                <Text mb={5} fontSize={14} fontWeight="bold">
+                  Balance: {balance}
+                </Text>
+              )}
+
               <Button
                 borderTopRightRadius={0}
                 borderBottomRightRadius={0}

@@ -6,12 +6,16 @@ import { formatAddress } from "../utils/helper";
 
 export default function Header({
   address,
+  balance,
   claimConditions,
   disconnectWallet,
   mode,
   provider,
   setMode,
+  showBalance,
   showInventory,
+  showRemainingMints,
+  showWallet,
   toast,
   tokenBalance,
 }) {
@@ -32,7 +36,10 @@ export default function Header({
           onClick={() => setMode("mint")}
           variant="link"
         >
-          Mint {claimConditions && `(${claimConditions[0]?.availableSupply})`}
+          Mint{" "}
+          {claimConditions &&
+            showRemainingMints &&
+            `(${claimConditions[0]?.availableSupply})`}
         </Button>
 
         {showInventory && (
@@ -56,7 +63,7 @@ export default function Header({
           </Button>
         )}
 
-        {address && provider && (
+        {address && provider && showWallet && (
           <Flex alignItems="center" flex={1} justifyContent="flex-end">
             <Button
               fontSize={12}
@@ -75,10 +82,12 @@ export default function Header({
 
       <WalletPopup
         address={address}
+        balance={balance}
         disconnectWallet={disconnectWallet}
         isOpen={isOpen}
         onClose={onClose}
         provider={provider}
+        showBalance={showBalance}
         toast={toast}
       />
     </Flex>
