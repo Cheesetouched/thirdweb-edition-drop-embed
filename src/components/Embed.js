@@ -11,6 +11,7 @@ import Loader from "./Loader";
 import Inventory from "./Inventory";
 
 function Embed({
+  borderRadius,
   chainId,
   contract,
   description,
@@ -125,7 +126,7 @@ function Embed({
     <Flex
       borderColor="rgba(0,0,0,0.1)"
       borderWidth="1px"
-      borderRadius="15px"
+      borderRadius={borderRadius}
       bgColor="white"
       flexDirection="column"
       height={height}

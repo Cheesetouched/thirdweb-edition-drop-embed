@@ -68,6 +68,7 @@ export const processQueryParams = (params) => {
   };
 
   return {
+    borderRadius: getInt("borderRadius") || 15,
     chainId: getInt("chainId"),
     contract: params.get("contract"),
     description: params.get("description"),
