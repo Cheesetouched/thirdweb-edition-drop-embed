@@ -19,10 +19,6 @@ function Embed({
   footerImage,
   footerUrl,
   height,
-  hideClaimCount,
-  hideDescription,
-  hideThirdwebLogo,
-  hideTitle,
   imageHeight,
   imageWidth,
   imageBorderRadius,
@@ -33,8 +29,12 @@ function Embed({
   mintText,
   rpcUrl,
   showBalance,
+  showClaimCount,
+  showDescription,
   showInventory,
   showRemainingMints,
+  showThirdwebLogo,
+  showTitle,
   showWallet,
   title,
   tokenId,
@@ -152,9 +152,6 @@ function Embed({
             fallbackImage={fallbackImage}
             getDropDetails={getDropDetails}
             getTokenBalance={getTokenBalance}
-            hideClaimCount={hideClaimCount}
-            hideDescription={hideDescription}
-            hideTitle={hideTitle}
             imageBorderRadius={imageBorderRadius}
             imageHeight={imageHeight}
             imageWidth={imageWidth}
@@ -162,6 +159,9 @@ function Embed({
             mintText={mintText}
             provider={provider}
             relayer={relayer}
+            showClaimCount={showClaimCount}
+            showDescription={showDescription}
+            showTitle={showTitle}
             title={title}
             toast={toast}
             tokenDetails={tokenDetails}
@@ -187,7 +187,7 @@ function Embed({
       <Footer
         footerImage={footerImage}
         footerUrl={footerUrl}
-        hideThirdwebLogo={hideThirdwebLogo}
+        showThirdwebLogo={showThirdwebLogo}
       />
     </Flex>
   );

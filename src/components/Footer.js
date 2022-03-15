@@ -1,9 +1,9 @@
 import { Flex, Image } from "@chakra-ui/react";
 
-export default function Footer({ footerImage, footerUrl, hideThirdwebLogo }) {
+export default function Footer({ footerImage, footerUrl, showThirdwebLogo }) {
   return (
     <>
-      {!hideThirdwebLogo && (
+      {showThirdwebLogo && (
         <Flex height="48px">
           <Flex
             alignItems="center"

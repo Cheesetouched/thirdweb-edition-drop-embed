@@ -15,9 +15,6 @@ export default function Mint({
   fallbackImage,
   getDropDetails,
   getTokenBalance,
-  hideClaimCount,
-  hideDescription,
-  hideTitle,
   imageBorderRadius,
   imageHeight,
   imageWidth,
@@ -25,6 +22,9 @@ export default function Mint({
   mintText,
   provider,
   relayer,
+  showClaimCount,
+  showDescription,
+  showTitle,
   title,
   toast,
   tokenDetails,
@@ -89,13 +89,13 @@ export default function Mint({
         />
       </Flex>
 
-      {!hideTitle && (
+      {showTitle && (
         <Text color="#272E36" fontSize="28px" fontWeight="bold" marginTop={2.5}>
           {title ? title : tokenDetails?.metadata?.name}
         </Text>
       )}
 
-      {!hideDescription && (
+      {showDescription && (
         <Text color="#272E36" fontWeight={500} noOfLines={2} mt={2.5}>
           {description ? description : tokenDetails?.metadata?.description}
         </Text>
@@ -132,7 +132,7 @@ export default function Mint({
         <WrongNetwork shouldSwitchTo={chainId} />
       )}
 
-      {!hideClaimCount &&
+      {showClaimCount &&
         !error?.message.toLowerCase().includes("unsupported") &&
         claimConditions && (
           <Text
