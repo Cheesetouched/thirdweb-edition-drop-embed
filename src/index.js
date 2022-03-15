@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ChakraProvider } from "@chakra-ui/react";
 import { ThirdwebWeb3Provider } from "@3rdweb/hooks";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 import "./index.css";
 import Embed from "./components/Embed";
@@ -26,13 +26,23 @@ const connectors = {
   },
 };
 
+const theme = extendTheme({
+  styles: {
+    global: {
+      "html, body": {
+        backgroundColor: "transparent",
+      },
+    },
+  },
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <ThirdwebWeb3Provider
       connectors={connectors}
       supportedChainIds={supportedChainIds}
     >
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <Embed {...dropOptions} />
       </ChakraProvider>
     </ThirdwebWeb3Provider>
