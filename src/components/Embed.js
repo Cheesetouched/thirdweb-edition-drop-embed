@@ -91,36 +91,26 @@ function Embed({
   }, [getDropDetails]);
 
   useEffect(() => {
+    if (contract === undefined || contract === null) {
+      toast({
+        title: "contract is not provided",
+        status: "error",
+      });
+    } else if (tokenId === undefined || isNaN(tokenId)) {
+      toast({
+        title: "tokenId is not provided",
+        status: "error",
+      });
+    }
+  }, [contract, toast, tokenId]);
+
+  useEffect(() => {
     (async () => {
       if (dropModule) {
         getTokenBalance();
       }
     })();
   }, [dropModule, getTokenBalance]);
-
-  useEffect(() => {
-    if (chainId === undefined || chainId === null) {
-      toast({
-        title: "chainId is not provided",
-        status: "error",
-      });
-    } else if (contract === undefined || contract === null) {
-      toast({
-        title: "contract is not provided",
-        status: "error",
-      });
-    } else if (rpcUrl === undefined || rpcUrl === null) {
-      toast({
-        title: "rpcUrl is not provided",
-        status: "error",
-      });
-    } else if (tokenId === undefined || tokenId === null) {
-      toast({
-        title: "tokenId is not provided",
-        status: "error",
-      });
-    }
-  }, [chainId, contract, rpcUrl, toast, tokenId]);
 
   return (
     <Flex

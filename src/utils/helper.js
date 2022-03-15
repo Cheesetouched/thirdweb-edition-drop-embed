@@ -69,7 +69,7 @@ export const processQueryParams = (params) => {
 
   return {
     borderRadius: getInt("borderRadius") || 15,
-    chainId: getInt("chainId"),
+    chainId: getInt("chainId") || 1,
     contract: params.get("contract"),
     description: params.get("description"),
     fallbackImage: params.get("fallbackImage"),
@@ -88,7 +88,7 @@ export const processQueryParams = (params) => {
     inventoryImageWidth: getInt("inventoryImageWidth") || 320,
     mintAllowedPerWallet: getInt("mintAllowedPerWallet") || 1,
     mintText: params.get("mintText"),
-    rpcUrl: params.get("rpcUrl") || getChainData(getInt("chainId")).rpcUrl,
+    rpcUrl: params.get("rpcUrl") || getChainData(getInt("chainId") || 1).rpcUrl,
     showBalance: getBool("showBalance", true),
     showInventory: getBool("showInventory", true),
     showRemainingMints: getBool("showRemainingMints", true),
