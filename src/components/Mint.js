@@ -132,7 +132,8 @@ export default function Mint({
         <WrongNetwork shouldSwitchTo={chainId} />
       )}
 
-      {showClaimCount &&
+      {provider &&
+        showClaimCount &&
         !error?.message.toLowerCase().includes("unsupported") &&
         claimConditions && (
           <Text
