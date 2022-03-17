@@ -1,4 +1,4 @@
-# Customisable Thirdweb Bundle Drop Embed
+# Customisable Thirdweb Edition Drop Embed
 
 ### Why?
 > I released my first NFT drop a few weeks ago using Thirdweb. I loved the experience - especially, the embed! But I wanted to make a few customisations, to 
@@ -12,22 +12,22 @@
 - Visually similar
 - Functionally similar
 - Deployed on IPFS
-- 30+ customisation params
+- 50+ customisation params
 - No code level involvement required
+
+Here's a [sample demo](https://cloudflare-ipfs.com/ipfs/QmTMzZDFyeAAxy9Fz6vNQhTMBorcdrWWQeDUtshpf4RjJT/?contract=0x8AD9FF773C918Fde2258ef85a789062963DF0C65&chainId=80001&tokenId=0&claimCountColor=%23424242&primaryColor=%23000000&secondaryColor=%23FFFFFF&primaryActiveColor=%2300000080&primaryHoverColor=%23000000CC) with a few customisations.
 
 Thirdweb Embed             |  Custom Embed
 :-------------------------:|:-------------------------:
-<img src="https://i.imgur.com/2HGwr9i_d.webp?maxwidth=760&fidelity=grand" width="350" height="350"/>   |  <img src="https://i.imgur.com/5aj8e1e_d.webp?maxwidth=760&fidelity=grand" width="350" height="350"/>
+<img src="https://i.imgur.com/2HGwr9i_d.webp?maxwidth=760&fidelity=grand" width="300" height="300"/>   |  <img src="https://i.imgur.com/5aj8e1e_d.webp?maxwidth=760&fidelity=grand" width="300" height="300"/>
 
 ### How?
-- Copy ```https://cloudflare-ipfs.com/ipfs/QmcyooYTWWNn4NsVttB2VSzXQuKKeoVmQFT6M2EpRU5qHC/```
-- Go to this [website](https://www.345tool.com/generator/query-string-generator) and paste the copied link in the ```Base URL``` field. Like this 👇
-  <img src="https://user-images.githubusercontent.com/22350239/158563875-bf56abe4-0a22-48ca-8051-389f5e04f060.png" height="80"/><br/>
+- Copy ```https://cloudflare-ipfs.com/ipfs/QmTMzZDFyeAAxy9Fz6vNQhTMBorcdrWWQeDUtshpf4RjJT/```
+- Go to this [website](https://www.345tool.com/generator/query-string-generator) and paste the copied link in the ```Base URL``` field.
 - Then tap the ```Add Query Pair``` button to add a key/value pair.
-- Choose the params that you wish to customise from the [table below](#customisations) and assign a suitable value. Example 👇
-  <img src="https://user-images.githubusercontent.com/22350239/158566377-823f5b4a-1d85-4b0c-b864-5fdd9ce703ae.png" height="400"/><br/>
-- Copy the generated ```Encoded URL```. Here's an [example](https://cloudflare-ipfs.com/ipfs/QmcyooYTWWNn4NsVttB2VSzXQuKKeoVmQFT6M2EpRU5qHC/?borderRadius=35&chainId=80001&contract=0x048B0556bf62D4c579b93eD5b7Bb75220AfBca68&tokenId=3&showInventory=false). <br/>
-  <img src="https://user-images.githubusercontent.com/22350239/158571651-602fc2b2-4c85-4b3b-a500-d1b619c072fb.png" height="200"/><br/>
+- Choose the params that you wish to customise from the [table below](#customisations) and assign a suitable value. Example 👇 <br/>
+  <img src="https://user-images.githubusercontent.com/22350239/158566377-823f5b4a-1d85-4b0c-b864-5fdd9ce703ae.png" height="300"/> <br/>
+- Copy the generated ```Encoded URL```. Here's an [example](https://cloudflare-ipfs.com/ipfs/QmTMzZDFyeAAxy9Fz6vNQhTMBorcdrWWQeDUtshpf4RjJT/?contract=0x8AD9FF773C918Fde2258ef85a789062963DF0C65&chainId=80001&tokenId=0&claimCountColor=%23424242&primaryColor=%23000000&secondaryColor=%23FFFFFF&primaryActiveColor=%2300000080&primaryHoverColor=%23000000CC). <br/>
 - Replace the URL in the ```src``` field of the embed code given by thirdweb, with the URL copied in the last step.
 ```
   <iframe
@@ -42,38 +42,59 @@ Thirdweb Embed             |  Custom Embed
 
 ### Customisations
 
-| Param                | Description                                            | Default Value                   | Required |
-|----------------------|--------------------------------------------------------|---------------------------------|----------|
-| borderRadius         | to change the border radius of the container           | 15                              | No       |
-| chainId              | to specify the chain where your contract is deployed   | 1 (Ethereum)                    | Yes      |
-| contract             | your contract id                                       | null                            | Yes      |
-| description          | to override the description text                       | description in your contract    | No       |
-| fallbackImage        | to change the image that shows while NFT is loading    | https://i.imgur.com/Wg2ESNp.png | No       |
-| footerImage          | to change the logo in the bottom right corner          | https://i.imgur.com/vsz2mTP.png | No       |
-| footerUrl            | to change the hyperlink of the footer logo             | https://thirdweb.com            | No       |
-| imageBorderRadius    | to change the border radius of the image               | 20                              | No       |
-| imageHeight          | to change the height of the image                      | 178                             | No       |
-| imageWidth           | to change the width of the image                       | 178                             | No       |
-| inventoryTitle       | to override the title text inside 'Inventory'          | title in your contract          | No       |
-| inventoryImageHeight | to change the height of the image inside 'Inventory'   | 320                             | No       |
-| inventoryImageWidth  | to change the width of the image inside 'Inventory'    | 320                             | No       |
-| mintAllowedPerWallet | to specify how many NFTs can each wallet mint in total | 1                               | No       |
-| mintText             | to change the text of the mint button                  | Mint (Free)                     | No       |
-| rpcUrl               | to use a custom RPC                                    | based on [chainId](https://github.com/Cheesetouched/thirdweb-bundle-drop-embed/blob/f413140babfff9f51f86d78dda3a1c3857e6eafa/src/utils/helper.js#L12)   | No       |
-| showBalance          | to show balance of the connected wallet in popup       | true                            | No       |
-| showClaimCount       | to show the counter that shows claim status            | true                            | No       |
-| showDescription      | to show the description text                           | true                            | No       |
-| showInventory        | to show the inventory tab                              | true                            | No       |
-| showRemainingMints   | to show the remaining mints in the 'Mint' tab          | true                            | No       |
-| showThirdwebLogo     | to show the Thirdweb logo in the footer                | true                            | No       |
-| showTitle            | to show the title text                                 | true                            | No       |
-| showWallet           | to show the wallet when connected                      | true                            | No       |
-| title                | to override the title text                             | title in your contract          | No       |
-| tokenId              | to specify the token id                                | null                            | Yes      |
-| relayer              | to specify relayer url to enable gasless transactions  | null                            | No       |
-| walletlinkAppName    | to change app name for walletlink                      | test                            | No       |
-| walletlinkAppUrl     | to change app url for walletlink                       | https://test.com                | No       |
-| walletlinkDarkMode   | to change dark mode for walletlink                     | true                            | No       |
+| Param                | Description                                                                  | Default Value                   | Required |
+|----------------------|------------------------------------------------------------------------------|---------------------------------|----------|
+| borderRadius         | to change the border radius of the container                                 | 15                              | No       |
+| borderColor          | to change the border color of the container                                  | rgba(0,0,0,0.1)                 | No       |
+| chainId              | to specify the chain where your contract is deployed                         | 1 (Ethereum)                    | Yes      |
+| claimCountColor      | to change the color of the claim count text                                  | #00742E                         | No       |
+| connectText          | to change the text of the connect wallet button                              | Connect Wallet                  | No       |
+| contract             | your contract id                                                             | null                            | Yes      |
+| description          | to override the description text                                             | description in your contract    | No       |
+| descriptionTextAlign | to change the alignment of the description text                              | center                          | No       |
+| descriptionColor     | to change the color of the description text                                  | #272E36                         | No       |
+| fallbackImage        | to change the image that shows while NFT is loading                          | https://i.imgur.com/Wg2ESNp.png | No       |
+| footerImage          | to change the logo in the bottom right corner                                | https://i.imgur.com/vsz2mTP.png | No       |
+| footerUrl            | to change the hyperlink of the footer logo                                   | https://thirdweb.com            | No       |
+| imageBorderRadius    | to change the border radius of the image                                     | 20                              | No       |
+| imageHeight          | to change the height of the image                                            | 178                             | No       |
+| imageWidth           | to change the width of the image                                             | 178                             | No       |
+| inventoryTitle       | to override the title text inside 'Inventory' tab                            | title in your contract          | No       |
+| inventoryImageHeight | to change the height of the image inside 'Inventory' tab                     | 318                             | No       |
+| inventoryImageWidth  | to change the width of the image inside 'Inventory' tab                      | 318                             | No       |
+| loaderColor          | to change the color of the loader                                            | #1A202C                         | No       |
+| mintAllowedPerWallet | to specify how many NFTs can each wallet mint in total                       | 1                               | No       |
+| mintSuccessText      | to change the text shown after a successful mint                             | Minted successfully!            | No       |
+| mintText             | to change the text of the mint button                                        | Mint                            | No       |
+| overrideInventory    | to change the title of the 'Inventory' tab                                   | Inventory                       | No       |
+| overrideMint         | to change the title of the 'Mint' tab                                        | Mint                            | No       |
+| primaryActiveColor   | to change the active state color of primary components                       | #0369A1                         | No       |
+| primaryBorderRadius  | to change the border radius of primary components                            | 6                               | No       |
+| primaryColor         | to change the color of primary components (connect/mint button etc)          | #0EA5E9                         | No       |
+| primaryHoverColor    | to change the hover state color of primary components                        | #0284C7                         | No       |
+| secondaryColor       | to change the color of components (text, icon etc) inside primary components | #FFFFFF                         | No       |
+| relayer              | to specify relayer url to enable gasless transactions                        | null                            | No       |
+| rpcUrl               | to use a custom RPC                                                          | based on [chainId](https://github.com/Cheesetouched/thirdweb-bundle-drop-embed/blob/f413140babfff9f51f86d78dda3a1c3857e6eafa/src/utils/helper.js#L12)   | No       |
+| showBalance          | to show balance of the connected wallet in popup                             | true                            | No       |
+| showClaimCount       | to show the counter that shows claim status                                  | true                            | No       |
+| showDescription      | to show the description text                                                 | true                            | No       |
+| showInventory        | to show the inventory tab                                                    | true                            | No       |
+| showMintIcon         | to show the diamond icon on the 'Mint' button                                | true                            | No       |
+| showRemainingMints   | to show the remaining mints in the 'Mint' tab                                | true                            | No       |
+| showThirdwebLogo     | to show the Thirdweb logo in the footer                                      | true                            | No       |
+| showTitle            | to show the title text                                                       | title in your contract          | No       |
+| showWallet           | to show the wallet when connected                                            | true                            | No       |
+| tabActiveTextColor   | to change the text color of the tab in active state                          | #3A3A3C                         | No       |
+| tabInactiveTextColor | to change the text color of the tab in inactive state                        | #AEAEB2                         | No       |
+| title                | to override the title text                                                   | title in your contract          | No       |
+| titleColor           | to change the color of the title text                                        | #272E36                         | No       |
+| tokenId              | to specify the token id                                                      | null                            | Yes      |
+| useMetamask          | to show Metamask in the connect options                                      | true                            | No       |
+| useWalletConnect     | to show WalletConnect in the connect options                                 | true                            | No       |
+| useWalletLink        | to show WalletLink in the connect options                                    | true                            | No       |
+| walletlinkAppName    | to change app name for walletlink                                            | test                            | No       |
+| walletlinkAppUrl     | to change app url for walletlink                                             | https://test.com                | No       |
+| walletlinkDarkMode   | to change dark mode for walletlink                                           | true                            | No       |
 
 ### Don't see your customisation in the table?
 > You have 2 options:
