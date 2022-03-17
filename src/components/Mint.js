@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useCallback } from "react";
 import { FaRegGem } from "react-icons/fa";
 import { Button, Flex, Image, Text } from "@chakra-ui/react";
@@ -40,6 +41,26 @@ export default function Mint({
   useWalletConnect,
   useWalletLink,
 }) {
+  const availableSupply = useMemo(
+    () => parseInt(claimConditions?.availableSupply),
+    [claimConditions]
+  );
+
+  const maxSupply = useMemo(
+    () => claimConditions?.maxQuantity.toNumber(),
+    [claimConditions]
+  );
+
+  const claimed = useMemo(
+    () => maxSupply - availableSupply,
+    [availableSupply, maxSupply]
+  );
+
+  const claimCount = useMemo(
+    () => `${claimed} / ${maxSupply}`,
+    [claimed, maxSupply]
+  );
+
   const mint = useCallback(async () => {
     setMinting(true);
     try {
@@ -66,7 +87,7 @@ export default function Mint({
         isClosable: true,
         status: "error",
         title: "Minting failed",
-        description: "You denied the transaction",
+        description: error?.message,
       });
     }
     setMinting(false);
@@ -136,7 +157,7 @@ export default function Mint({
           backgroundColor="primaryColor"
           borderRadius={primaryBorderRadius}
           color="secondaryColor"
-          disabled={dropError || minting}
+          disabled={dropError || minting || claimed === maxSupply}
           _hover={{ backgroundColor: "primaryHoverColor" }}
           isFullWidth
           leftIcon={showMintIcon && <FaRegGem />}
@@ -147,9 +168,11 @@ export default function Mint({
         >
           {dropError
             ? dropError
+            : claimed === maxSupply
+            ? "Sold out"
             : mintText
             ? mintText
-            : claimConditions?.price?.toNumber() === 0
+            : claimConditions?.currencyMetadata.displayValue === "0.0"
             ? "Mint (Free)"
             : `Mint (${`${claimConditions?.currencyMetadata?.displayValue} ${claimConditions?.currencyMetadata?.symbol}`})`}
         </Button>
@@ -182,10 +205,7 @@ export default function Mint({
             fontSize={14}
             fontWeight="bold"
             mt={3}
-          >{`${
-            claimConditions.maxQuantity.toNumber() -
-            parseInt(claimConditions.availableSupply)
-          } / ${claimConditions.maxQuantity.toNumber()} claimed`}</Text>
+          >{`${claimCount} claimed`}</Text>
         )}
     </Flex>
   );
