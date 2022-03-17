@@ -1,6 +1,6 @@
 {
-  "short_name": "thirdweb-embed",
-  "name": "Thirdweb NFT Drop Embed",
+  "short_name": "edition-drop",
+  "name": "Thirdweb Edition Drop Embed",
   "icons": [
     {
       "src": "favicon.ico",
