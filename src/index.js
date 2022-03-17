@@ -27,6 +27,19 @@ const connectors = {
 };
 
 const theme = extendTheme({
+  colors: {
+    borderColor: dropOptions.borderColor,
+    claimCountColor: dropOptions.claimCountColor,
+    descriptionColor: dropOptions.descriptionColor,
+    loaderColor: dropOptions.loaderColor,
+    primaryActiveColor: dropOptions.primaryActiveColor,
+    primaryColor: dropOptions.primaryColor,
+    primaryHoverColor: dropOptions.primaryHoverColor,
+    secondaryColor: dropOptions.secondaryColor,
+    tabActiveTextColor: dropOptions.tabActiveTextColor,
+    tabInactiveTextColor: dropOptions.tabInactiveTextColor,
+    titleColor: dropOptions.titleColor,
+  },
   styles: {
     global: {
       "html, body": {

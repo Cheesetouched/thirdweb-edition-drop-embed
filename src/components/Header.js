@@ -9,7 +9,10 @@ export default function Header({
   balance,
   claimConditions,
   disconnectWallet,
+  minting,
   mode,
+  overrideInventory,
+  overrideMint,
   provider,
   setMode,
   showBalance,
@@ -25,33 +28,51 @@ export default function Header({
     <Flex direction="column">
       <Flex marginX="28px">
         <Button
+          _active={{
+            color:
+              mode === "mint" ? "tabActiveTextColor" : "tabInactiveTextColor",
+          }}
           borderRadius={0}
           borderTop="4px solid transparent"
           borderBottom="4px solid"
-          borderBottomColor={mode === "mint" ? "#0EA5E9" : "#00000000"}
-          color={mode === "mint" ? "#3A3A3C" : "#AEAEB2"}
+          borderBottomColor={mode === "mint" ? "primaryColor" : "#00000000"}
+          color={
+            mode === "mint" ? "tabActiveTextColor" : "tabInactiveTextColor"
+          }
+          fontSize={{ base: "16px", md: "20px", lg: "20px" }}
           fontWeight="bold"
           height="48px"
           _hover={{ textDecoration: "none" }}
           onClick={() => setMode("mint")}
           variant="link"
         >
-          Mint{" "}
+          {overrideMint ? overrideMint : "Mint"}{" "}
           {claimConditions &&
             showRemainingMints &&
-            `(${claimConditions[0]?.availableSupply})`}
+            `(${claimConditions?.availableSupply})`}
         </Button>
 
         {showInventory && (
           <Button
             _active={{
-              color: mode === "inventory" ? "#3A3A3C" : "#AEAEB2",
+              color:
+                mode === "inventory"
+                  ? "tabActiveTextColor"
+                  : "tabInactiveTextColor",
             }}
             borderRadius={0}
             borderTop="4px solid transparent"
             borderBottom="4px solid"
-            borderBottomColor={mode === "inventory" ? "#0EA5E9" : "#00000000"}
-            color={mode === "inventory" ? "#3A3A3C" : "#AEAEB2"}
+            borderBottomColor={
+              mode === "inventory" ? "primaryColor" : "#00000000"
+            }
+            color={
+              mode === "inventory"
+                ? "tabActiveTextColor"
+                : "tabInactiveTextColor"
+            }
+            disabled={minting}
+            fontSize={{ base: "16px", md: "20px", lg: "20px" }}
             fontWeight="bold"
             height="48px"
             _hover={{ textDecoration: "none" }}
@@ -59,7 +80,8 @@ export default function Header({
             onClick={() => setMode("inventory")}
             variant="link"
           >
-            Inventory {provider && tokenBalance !== null && `(${tokenBalance})`}
+            {overrideInventory ? overrideInventory : "Inventory"}{" "}
+            {provider && tokenBalance !== null && `(${tokenBalance})`}
           </Button>
         )}
 

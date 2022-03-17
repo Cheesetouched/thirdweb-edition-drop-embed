@@ -4,14 +4,19 @@ import ConnectWallet from "./ConnectWallet";
 
 export default function Inventory({
   connectFunction,
+  connectText,
   error,
   fallbackImage,
   inventoryImageHeight,
   inventoryImageWidth,
   inventoryTitle,
+  primaryBorderRadius,
   provider,
   tokenBalance,
   tokenDetails,
+  useMetamask,
+  useWalletConnect,
+  useWalletLink,
 }) {
   return (
     <>
@@ -31,18 +36,25 @@ export default function Inventory({
             <Image
               alt="preview"
               fallbackSrc={fallbackImage ? fallbackImage : "./drop.svg"}
+              height="100%"
+              objectFit="contain"
               src={tokenDetails?.metadata?.image}
+              width="100%"
             />
           </Flex>
 
           <Text
             align="center"
-            color="#272E36"
+            color="titleColor"
             fontSize={18}
             fontWeight="bold"
-            mt={5}
+            mt={3}
           >
             {inventoryTitle ? inventoryTitle : tokenDetails?.metadata?.name}
+          </Text>
+
+          <Text align="center" color="titleColor" mt={2}>
+            {`You own ${tokenBalance}`}
           </Text>
         </Flex>
       )}
@@ -65,8 +77,13 @@ export default function Inventory({
 
           <ConnectWallet
             connectFunction={connectFunction}
+            connectText={connectText}
             error={error}
+            primaryBorderRadius={primaryBorderRadius}
             provider={provider}
+            useMetamask={useMetamask}
+            useWalletConnect={useWalletConnect}
+            useWalletLink={useWalletLink}
           />
         </Flex>
       )}

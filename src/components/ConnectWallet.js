@@ -7,9 +7,20 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  Text,
 } from "@chakra-ui/react";
 
-export default function ConnectWallet({ connectFunction, error, provider }) {
+export default function ConnectWallet({
+  connectFunction,
+  connectText,
+  dropError,
+  error,
+  primaryBorderRadius,
+  provider,
+  useMetamask,
+  useWalletConnect,
+  useWalletLink,
+}) {
   const [active, setActive] = useState(false);
   const [connecting, setConnecting] = useState(null);
 
@@ -29,68 +40,76 @@ export default function ConnectWallet({ connectFunction, error, provider }) {
       <PopoverTrigger>
         <Button
           _active={{
-            backgroundColor: "#007EC5",
+            backgroundColor: "primaryActiveColor",
           }}
-          backgroundColor="#0098EE"
-          color="white"
-          _hover={{ backgroundColor: "#007EC5" }}
+          backgroundColor="primaryColor"
+          borderRadius={primaryBorderRadius}
+          color="secondaryColor"
+          disabled={dropError}
+          _hover={{ backgroundColor: "primaryHoverColor" }}
           isActive={active}
           isFullWidth
           isLoading={connecting}
           mt={5}
-          rightIcon={<FiChevronDown />}
+          rightIcon={!dropError && <FiChevronDown />}
           size="md"
         >
-          Connect Wallet
+          <Text width="100%">{dropError ? dropError : connectText}</Text>
         </Button>
       </PopoverTrigger>
 
       <PopoverContent width="100%">
         <HStack padding="8px">
-          <Button
-            flexGrow={1}
-            fontSize="xs"
-            isLoading={connecting === "metamask"}
-            leftIcon={<Image boxSize={6} src="./metamask.svg" />}
-            onClick={() => {
-              setConnecting("metamask");
-              connectFunction("injected");
-            }}
-            size="sm"
-            variant="outline"
-          >
-            MetaMask
-          </Button>
+          {useMetamask && (
+            <Button
+              flexGrow={1}
+              fontSize="xs"
+              isLoading={connecting === "metamask"}
+              leftIcon={<Image boxSize={6} src="./metamask.svg" />}
+              onClick={() => {
+                setConnecting("metamask");
+                connectFunction("injected");
+              }}
+              size="sm"
+              variant="outline"
+            >
+              MetaMask
+            </Button>
+          )}
 
-          <Button
-            flexGrow={1}
-            fontSize="xs"
-            isLoading={connecting === "walletconnect"}
-            leftIcon={<Image boxSize={6} src="./walletconnect.svg" />}
-            onClick={() => {
-              setConnecting("walletconnect");
-              connectFunction("walletconnect");
-            }}
-            size="sm"
-            variant="outline"
-          >
-            WalletConnect
-          </Button>
+          {useWalletConnect && (
+            <Button
+              flexGrow={1}
+              fontSize="xs"
+              isLoading={connecting === "walletconnect"}
+              leftIcon={<Image boxSize={6} src="./walletconnect.svg" />}
+              onClick={() => {
+                setConnecting("walletconnect");
+                connectFunction("walletconnect");
+              }}
+              size="sm"
+              variant="outline"
+            >
+              WalletConnect
+            </Button>
+          )}
 
-          <Button
-            flexGrow={1}
-            fontSize="xs"
-            isLoading={connecting === "walletlink"}
-            leftIcon={<Image boxSize={6} src="./coinbase.svg" />}
-            onClick={() => {
-              setConnecting("walletlink");
-              connectFunction("walletlink");
-            }}
-            size="sm"
-            variant="outline"
-          >
-            Coinbase Wallet
-          </Button>
+          {useWalletLink && (
+            <Button
+              flexGrow={1}
+              fontSize="xs"
+              isLoading={connecting === "walletlink"}
+              leftIcon={<Image boxSize={6} src="./coinbase.svg" />}
+              onClick={() => {
+                setConnecting("walletlink");
+                connectFunction("walletlink");
+              }}
+              size="sm"
+              variant="outline"
+            >
+              Coinbase Wallet
+            </Button>
+          )}
         </HStack>
       </PopoverContent>
     </Popover>

@@ -1,5 +1,5 @@
+import { useCallback } from "react";
 import { FaRegGem } from "react-icons/fa";
-import { useCallback, useState } from "react";
 import { Button, Flex, Image, Text } from "@chakra-ui/react";
 
 import WrongNetwork from "./WrongNetwork";
@@ -9,7 +9,10 @@ export default function Mint({
   chainId,
   claimConditions,
   connectFunction,
+  connectText,
   description,
+  descriptionTextAlign,
+  dropError,
   dropModule,
   error,
   fallbackImage,
@@ -18,20 +21,25 @@ export default function Mint({
   imageBorderRadius,
   imageHeight,
   imageWidth,
+  minting,
   mintAllowedPerWallet,
+  mintSuccessText,
   mintText,
+  primaryBorderRadius,
   provider,
-  relayer,
+  setMinting,
   showClaimCount,
   showDescription,
+  showMintIcon,
   showTitle,
   title,
   toast,
   tokenDetails,
   tokenId,
+  useMetamask,
+  useWalletConnect,
+  useWalletLink,
 }) {
-  const [minting, setMinting] = useState(false);
-
   const mint = useCallback(async () => {
     setMinting(true);
     try {
@@ -46,9 +54,10 @@ export default function Mint({
         await dropModule.claim(tokenId, 1);
         await Promise.all([getDropDetails(), getTokenBalance()]);
         toast({
+          duration: 10000,
           isClosable: true,
           status: "success",
-          title: "Minted successfully!",
+          title: mintSuccessText,
         });
       }
     } catch (error) {
@@ -57,6 +66,7 @@ export default function Mint({
         isClosable: true,
         status: "error",
         title: "Minting failed",
+        description: "You denied the transaction",
       });
     }
     setMinting(false);
@@ -65,6 +75,8 @@ export default function Mint({
     getDropDetails,
     getTokenBalance,
     mintAllowedPerWallet,
+    mintSuccessText,
+    setMinting,
     toast,
     tokenId,
   ]);
@@ -85,18 +97,33 @@ export default function Mint({
         <Image
           alt="preview"
           fallbackSrc={fallbackImage ? fallbackImage : "./drop.svg"}
+          height="100%"
+          objectFit="contain"
           src={tokenDetails?.metadata?.image}
+          width="100%"
         />
       </Flex>
 
       {showTitle && (
-        <Text color="#272E36" fontSize="28px" fontWeight="bold" marginTop={2.5}>
+        <Text
+          color="titleColor"
+          fontSize={{ base: "28px", md: "64px", lg: "64px" }}
+          fontWeight="bold"
+          marginTop={2.5}
+        >
           {title ? title : tokenDetails?.metadata?.name}
         </Text>
       )}
 
       {showDescription && (
-        <Text color="#272E36" fontWeight={500} noOfLines={2} mt={2.5}>
+        <Text
+          align={descriptionTextAlign}
+          color="descriptionColor"
+          fontSize={{ base: "16px", md: "20px", lg: "20px" }}
+          fontWeight={500}
+          noOfLines={2}
+          mt={2.5}
+        >
           {description ? description : tokenDetails?.metadata?.description}
         </Text>
       )}
@@ -104,27 +131,41 @@ export default function Mint({
       {!error?.message.toLowerCase().includes("unsupported") && provider && (
         <Button
           _active={{
-            backgroundColor: "#007EC5",
+            backgroundColor: "primaryActiveColor",
           }}
-          backgroundColor="#0098EE"
-          color="white"
-          _hover={{ backgroundColor: "#007EC5" }}
+          backgroundColor="primaryColor"
+          borderRadius={primaryBorderRadius}
+          color="secondaryColor"
+          disabled={dropError || minting}
+          _hover={{ backgroundColor: "primaryHoverColor" }}
           isFullWidth
-          leftIcon={<FaRegGem />}
+          leftIcon={showMintIcon && <FaRegGem />}
           isLoading={minting}
           mt={5}
           onClick={() => mint()}
           size="md"
         >
-          {mintText ? mintText : relayer ? "Mint (Free)" : "Mint"}
+          {dropError
+            ? dropError
+            : mintText
+            ? mintText
+            : claimConditions?.price?.toNumber() === 0
+            ? "Mint (Free)"
+            : `Mint (${`${claimConditions?.currencyMetadata?.displayValue} ${claimConditions?.currencyMetadata?.symbol}`})`}
         </Button>
       )}
 
       {!error?.message.toLowerCase().includes("unsupported") && !provider && (
         <ConnectWallet
           connectFunction={connectFunction}
+          connectText={connectText}
+          dropError={dropError}
           error={error}
+          primaryBorderRadius={primaryBorderRadius}
           provider={provider}
+          useMetamask={useMetamask}
+          useWalletConnect={useWalletConnect}
+          useWalletLink={useWalletLink}
         />
       )}
 
@@ -137,11 +178,14 @@ export default function Mint({
         !error?.message.toLowerCase().includes("unsupported") &&
         claimConditions && (
           <Text
-            color="#00742E"
+            color="claimCountColor"
             fontSize={14}
             fontWeight="bold"
             mt={3}
-          >{`${claimConditions[0].currentMintSupply} / ${claimConditions[0].maxMintSupply} claimed`}</Text>
+          >{`${
+            claimConditions.maxQuantity.toNumber() -
+            parseInt(claimConditions.availableSupply)
+          } / ${claimConditions.maxQuantity.toNumber()} claimed`}</Text>
         )}
     </Flex>
   );

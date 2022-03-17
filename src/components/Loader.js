@@ -3,9 +3,9 @@ import { Flex, Spinner, Text } from "@chakra-ui/react";
 export default function Loader() {
   return (
     <Flex align="center">
-      <Spinner />
+      <Spinner color="loaderColor" />
 
-      <Text ml={3} fontWeight="bold" fontSize={12}>
+      <Text color="loaderColor" fontSize={12} fontWeight="bold" ml={3}>
         Loading...
       </Text>
     </Flex>

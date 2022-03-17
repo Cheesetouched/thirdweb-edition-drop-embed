@@ -1,6 +1,5 @@
-import { ethers } from "ethers";
 import { useWeb3 } from "@3rdweb/hooks";
-import { ThirdwebSDK } from "@3rdweb/sdk";
+import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { Center, Flex, useToast } from "@chakra-ui/react";
 import { useCallback, useState, useEffect, useMemo } from "react";
 
@@ -13,8 +12,10 @@ import Inventory from "./Inventory";
 function Embed({
   borderRadius,
   chainId,
+  connectText,
   contract,
   description,
+  descriptionTextAlign,
   fallbackImage,
   footerImage,
   footerUrl,
@@ -26,24 +27,34 @@ function Embed({
   inventoryImageHeight,
   inventoryImageWidth,
   mintAllowedPerWallet,
+  mintSuccessText,
   mintText,
+  overrideInventory,
+  overrideMint,
+  primaryBorderRadius,
+  relayer = null,
   rpcUrl,
   showBalance,
   showClaimCount,
   showDescription,
   showInventory,
+  showMintIcon,
   showRemainingMints,
   showThirdwebLogo,
   showTitle,
   showWallet,
   title,
   tokenId,
-  relayer = null,
+  useMetamask,
+  useWalletConnect,
+  useWalletLink,
   width,
 }) {
   const toast = useToast();
   const [mode, setMode] = useState("mint");
   const [loading, setLoading] = useState(true);
+  const [minting, setMinting] = useState(false);
+  const [dropError, setDropError] = useState(null);
   const [tokenBalance, setTokenBalance] = useState(null);
   const [tokenDetails, setTokenDetails] = useState(null);
   const [claimConditions, setClaimConditions] = useState(null);
@@ -52,33 +63,42 @@ function Embed({
 
   const sdk = useMemo(() => {
     if (provider) {
-      return new ThirdwebSDK(provider.getSigner(), {
-        transactionRelayerUrl: relayer,
-      });
+      if (relayer) {
+        return new ThirdwebSDK(provider.getSigner(), {
+          gasless: { openzeppelin: { relayerUrl: relayer } },
+        });
+      } else {
+        return new ThirdwebSDK(provider.getSigner());
+      }
     }
     return null;
   }, [provider, relayer]);
 
   const dropModule = useMemo(() => {
     if (sdk) {
-      return sdk.getBundleDropModule(contract);
+      return sdk.getEditionDrop(contract);
     }
     return null;
   }, [contract, sdk]);
 
   const getDropDetails = useCallback(async () => {
-    const defaultProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
-    const sdk = new ThirdwebSDK(defaultProvider);
-    const dropModule = sdk.getBundleDropModule(contract);
+    const sdk = new ThirdwebSDK(rpcUrl);
+    const dropModule = sdk.getEditionDrop(contract);
 
-    const [tokenDetails, claimConditions] = await Promise.all([
+    const [tokenDetails, claimConditions] = await Promise.allSettled([
       dropModule.get(tokenId),
-      dropModule.getAllClaimConditions(tokenId),
+      dropModule.claimConditions.getActive(tokenId),
     ]);
 
     setLoading(false);
-    setTokenDetails(tokenDetails);
-    setClaimConditions(claimConditions);
+
+    tokenDetails.status === "fulfilled"
+      ? setTokenDetails(tokenDetails.value)
+      : setDropError("Could not fetch drop details");
+
+    claimConditions.status === "fulfilled"
+      ? setClaimConditions(claimConditions.value)
+      : setDropError("This drop is not ready to be claimed.");
   }, [contract, rpcUrl, tokenId]);
 
   const getTokenBalance = useCallback(async () => {
@@ -114,7 +134,7 @@ function Embed({
 
   return (
     <Flex
-      borderColor="rgba(0,0,0,0.1)"
+      borderColor="borderColor"
       borderWidth="1px"
       borderRadius={borderRadius}
       bgColor="white"
@@ -127,7 +147,10 @@ function Embed({
         balance={balance?.formatted}
         claimConditions={claimConditions}
         disconnectWallet={disconnectWallet}
+        minting={minting}
         mode={mode}
+        overrideInventory={overrideInventory}
+        overrideMint={overrideMint}
         provider={provider}
         setMode={setMode}
         showBalance={showBalance}
@@ -146,7 +169,10 @@ function Embed({
             chainId={chainId}
             claimConditions={claimConditions}
             connectFunction={connectWallet}
+            connectText={connectText}
             description={description}
+            descriptionTextAlign={descriptionTextAlign}
+            dropError={dropError}
             dropModule={dropModule}
             error={error}
             fallbackImage={fallbackImage}
@@ -155,31 +181,43 @@ function Embed({
             imageBorderRadius={imageBorderRadius}
             imageHeight={imageHeight}
             imageWidth={imageWidth}
+            minting={minting}
             mintAllowedPerWallet={mintAllowedPerWallet}
+            mintSuccessText={mintSuccessText}
             mintText={mintText}
+            primaryBorderRadius={primaryBorderRadius}
             provider={provider}
-            relayer={relayer}
+            setMinting={setMinting}
             showClaimCount={showClaimCount}
             showDescription={showDescription}
+            showMintIcon={showMintIcon}
             showTitle={showTitle}
             title={title}
             toast={toast}
             tokenDetails={tokenDetails}
             tokenId={tokenId}
+            useMetamask={useMetamask}
+            useWalletConnect={useWalletConnect}
+            useWalletLink={useWalletLink}
           />
         )}
 
         {!loading && mode === "inventory" && showInventory && (
           <Inventory
             connectFunction={connectWallet}
+            connectText={connectText}
             error={error}
             fallbackImage={fallbackImage}
             inventoryImageHeight={inventoryImageHeight}
             inventoryImageWidth={inventoryImageWidth}
             inventoryTitle={inventoryTitle}
+            primaryBorderRadius={primaryBorderRadius}
             provider={provider}
             tokenBalance={tokenBalance}
             tokenDetails={tokenDetails}
+            useMetamask={useMetamask}
+            useWalletConnect={useWalletConnect}
+            useWalletLink={useWalletLink}
           />
         )}
       </Center>
