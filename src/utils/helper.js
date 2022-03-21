@@ -68,6 +68,8 @@ export const processQueryParams = (params) => {
   };
 
   return {
+    backgroundImage: params.get("backgroundImage") || null,
+    backgroundRepeat: params.get("backgroundRepeat") || "no-repeat",
     borderRadius: getInt("borderRadius") || 15,
     borderColor: params.get("borderColor") || "rgba(0,0,0,0.1)",
     chainId: getInt("chainId") || 1,
@@ -95,6 +97,7 @@ export const processQueryParams = (params) => {
     overrideInventory: params.get("overrideInventory"),
     primaryActiveColor: params.get("primaryActiveColor") || "#0369A1",
     primaryBorderRadius: getInt("primaryBorderRadius") || 6,
+    primaryButtonMt: getInt("primaryButtonMt") || 5,
     primaryColor: params.get("primaryColor") || "#0EA5E9",
     primaryHoverColor: params.get("primaryHoverColor") || "#0284C7",
     secondaryColor: params.get("secondaryColor") || "#FFFFFF",
@@ -103,7 +106,10 @@ export const processQueryParams = (params) => {
     showBalance: getBool("showBalance", true),
     showClaimCount: getBool("showClaimCount", true),
     showDescription: getBool("showDescription", true),
+    showDivider: getBool("showDivider", true),
+    showImage: getBool("showImage", true),
     showInventory: getBool("showInventory", true),
+    showInventoryTitle: getBool("showInventoryTitle", true),
     showMintIcon: getBool("showMintIcon", true),
     showRemainingMints: getBool("showRemainingMints", true),
     showThirdwebLogo: getBool("showThirdwebLogo", true),

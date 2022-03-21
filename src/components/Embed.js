@@ -10,6 +10,8 @@ import Loader from "./Loader";
 import Inventory from "./Inventory";
 
 function Embed({
+  backgroundImage,
+  backgroundRepeat,
   borderRadius,
   chainId,
   connectText,
@@ -32,12 +34,16 @@ function Embed({
   overrideInventory,
   overrideMint,
   primaryBorderRadius,
+  primaryButtonMt,
   relayer = null,
   rpcUrl,
   showBalance,
   showClaimCount,
   showDescription,
+  showDivider,
+  showImage,
   showInventory,
+  showInventoryTitle,
   showMintIcon,
   showRemainingMints,
   showThirdwebLogo,
@@ -137,6 +143,8 @@ function Embed({
       borderColor="borderColor"
       borderWidth="1px"
       borderRadius={borderRadius}
+      backgroundRepeat={backgroundRepeat}
+      backgroundImage={backgroundImage}
       bgColor="white"
       flexDirection="column"
       height={height}
@@ -154,6 +162,7 @@ function Embed({
         provider={provider}
         setMode={setMode}
         showBalance={showBalance}
+        showDivider={showDivider}
         showInventory={showInventory}
         showRemainingMints={showRemainingMints}
         showWallet={showWallet}
@@ -162,7 +171,7 @@ function Embed({
       />
 
       <Center flex={1} paddingX="28px">
-        {loading && <Loader />}
+        {loading && <Loader mt={primaryButtonMt} />}
 
         {!loading && mode === "mint" && (
           <Mint
@@ -185,11 +194,13 @@ function Embed({
             mintAllowedPerWallet={mintAllowedPerWallet}
             mintSuccessText={mintSuccessText}
             mintText={mintText}
+            primaryButtonMt={primaryButtonMt}
             primaryBorderRadius={primaryBorderRadius}
             provider={provider}
             setMinting={setMinting}
             showClaimCount={showClaimCount}
             showDescription={showDescription}
+            showImage={showImage}
             showMintIcon={showMintIcon}
             showTitle={showTitle}
             title={title}
@@ -211,8 +222,10 @@ function Embed({
             inventoryImageHeight={inventoryImageHeight}
             inventoryImageWidth={inventoryImageWidth}
             inventoryTitle={inventoryTitle}
+            primaryButtonMt={primaryButtonMt}
             primaryBorderRadius={primaryBorderRadius}
             provider={provider}
+            showInventoryTitle={showInventoryTitle}
             tokenBalance={tokenBalance}
             tokenDetails={tokenDetails}
             useMetamask={useMetamask}

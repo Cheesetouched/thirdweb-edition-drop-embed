@@ -16,6 +16,7 @@ export default function Header({
   provider,
   setMode,
   showBalance,
+  showDivider,
   showInventory,
   showRemainingMints,
   showWallet,
@@ -100,7 +101,7 @@ export default function Header({
         )}
       </Flex>
 
-      <Divider />
+      {showDivider && <Divider />}
 
       <WalletPopup
         address={address}

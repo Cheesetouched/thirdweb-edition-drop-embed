@@ -10,8 +10,10 @@ export default function Inventory({
   inventoryImageHeight,
   inventoryImageWidth,
   inventoryTitle,
+  primaryButtonMt,
   primaryBorderRadius,
   provider,
+  showInventoryTitle,
   tokenBalance,
   tokenDetails,
   useMetamask,
@@ -60,25 +62,30 @@ export default function Inventory({
       )}
 
       {provider && tokenBalance === 0 && (
-        <VStack>
-          <Text fontSize="18" fontWeight="bold">
+        <VStack mt={primaryButtonMt}>
+          <Text color="titleColor" fontSize="18" fontWeight="bold">
             You don't own this NFT yet :(
           </Text>
 
-          <Text fontSize="16">Once you do, it'll show up here.</Text>
+          <Text color="titleColor" fontSize="16">
+            Once you do, it'll show up here.
+          </Text>
         </VStack>
       )}
 
       {!provider && (
         <Flex direction="column">
-          <Text fontSize={12} fontWeight="bold">
-            Connect your wallet to see your inventory
-          </Text>
+          {showInventoryTitle && (
+            <Text fontSize={12} fontWeight="bold">
+              Connect your wallet to see your inventory
+            </Text>
+          )}
 
           <ConnectWallet
             connectFunction={connectFunction}
             connectText={connectText}
             error={error}
+            primaryButtonMt={primaryButtonMt}
             primaryBorderRadius={primaryBorderRadius}
             provider={provider}
             useMetamask={useMetamask}

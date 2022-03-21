@@ -15,6 +15,7 @@ export default function ConnectWallet({
   connectText,
   dropError,
   error,
+  primaryButtonMt,
   primaryBorderRadius,
   provider,
   useMetamask,
@@ -50,7 +51,7 @@ export default function ConnectWallet({
           isActive={active}
           isFullWidth
           isLoading={connecting}
-          mt={5}
+          mt={primaryButtonMt}
           rightIcon={!dropError && <FiChevronDown />}
           size="md"
         >

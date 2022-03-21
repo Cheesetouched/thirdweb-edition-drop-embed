@@ -26,11 +26,13 @@ export default function Mint({
   mintAllowedPerWallet,
   mintSuccessText,
   mintText,
+  primaryButtonMt,
   primaryBorderRadius,
   provider,
   setMinting,
   showClaimCount,
   showDescription,
+  showImage,
   showMintIcon,
   showTitle,
   title,
@@ -104,26 +106,28 @@ export default function Mint({
 
   return (
     <Flex align="center" direction="column">
-      <Flex
-        align="center"
-        background="#F2F0FF"
-        border="1px solid rgba(0,0,0,0.1)"
-        borderRadius={imageBorderRadius}
-        flexDirection="column"
-        height={imageHeight}
-        overflow="hidden"
-        justifyContent="center"
-        width={imageWidth}
-      >
-        <Image
-          alt="preview"
-          fallbackSrc={fallbackImage ? fallbackImage : "./drop.svg"}
-          height="100%"
-          objectFit="contain"
-          src={tokenDetails?.metadata?.image}
-          width="100%"
-        />
-      </Flex>
+      {showImage && (
+        <Flex
+          align="center"
+          background="#F2F0FF"
+          border="1px solid rgba(0,0,0,0.1)"
+          borderRadius={imageBorderRadius}
+          flexDirection="column"
+          height={imageHeight}
+          overflow="hidden"
+          justifyContent="center"
+          width={imageWidth}
+        >
+          <Image
+            alt="preview"
+            fallbackSrc={fallbackImage ? fallbackImage : "./drop.svg"}
+            height="100%"
+            objectFit="contain"
+            src={tokenDetails?.metadata?.image}
+            width="100%"
+          />
+        </Flex>
+      )}
 
       {showTitle && (
         <Text
@@ -162,7 +166,7 @@ export default function Mint({
           isFullWidth
           leftIcon={showMintIcon && <FaRegGem />}
           isLoading={minting}
-          mt={5}
+          mt={primaryButtonMt}
           onClick={() => mint()}
           size="md"
         >
@@ -184,6 +188,7 @@ export default function Mint({
           connectText={connectText}
           dropError={dropError}
           error={error}
+          primaryButtonMt={primaryButtonMt}
           primaryBorderRadius={primaryBorderRadius}
           provider={provider}
           useMetamask={useMetamask}
