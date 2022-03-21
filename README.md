@@ -15,19 +15,19 @@
 - 50+ customisation params
 - No code level involvement required
 
-Here's a [sample demo](https://cloudflare-ipfs.com/ipfs/QmTMzZDFyeAAxy9Fz6vNQhTMBorcdrWWQeDUtshpf4RjJT/?contract=0x8AD9FF773C918Fde2258ef85a789062963DF0C65&chainId=80001&tokenId=0&claimCountColor=%23424242&primaryColor=%23000000&secondaryColor=%23FFFFFF&primaryActiveColor=%2300000080&primaryHoverColor=%23000000CC) with a few customisations.
+Here's a [sample demo](https://cloudflare-ipfs.com/ipfs/QmQ7WyTtyzxNdG6NeFg5epUMTNWuRo5VdEMUhUVU9XNqG9/?contract=0x8AD9FF773C918Fde2258ef85a789062963DF0C65&chainId=80001&tokenId=0&claimCountColor=%23424242&primaryColor=%23000000&secondaryColor=%23FFFFFF&primaryActiveColor=%2300000080&primaryHoverColor=%23000000CC) with a few customisations.
 
 Thirdweb Embed             |  Custom Embed
 :-------------------------:|:-------------------------:
 <img src="https://i.imgur.com/2HGwr9i_d.webp?maxwidth=760&fidelity=grand" width="300" height="300"/>   |  <img src="https://i.imgur.com/5aj8e1e_d.webp?maxwidth=760&fidelity=grand" width="300" height="300"/>
 
 ### How?
-- Copy ```https://cloudflare-ipfs.com/ipfs/QmTMzZDFyeAAxy9Fz6vNQhTMBorcdrWWQeDUtshpf4RjJT/```
+- Copy ```https://cloudflare-ipfs.com/ipfs/QmQ7WyTtyzxNdG6NeFg5epUMTNWuRo5VdEMUhUVU9XNqG9/```
 - Go to this [website](https://www.345tool.com/generator/query-string-generator) and paste the copied link in the ```Base URL``` field.
 - Then tap the ```Add Query Pair``` button to add a key/value pair.
 - Choose the params that you wish to customise from the [table below](#customisations) and assign a suitable value. Example 👇 <br/>
   <img src="https://user-images.githubusercontent.com/22350239/158566377-823f5b4a-1d85-4b0c-b864-5fdd9ce703ae.png" height="300"/> <br/>
-- Copy the generated ```Encoded URL```. Here's an [example](https://cloudflare-ipfs.com/ipfs/QmTMzZDFyeAAxy9Fz6vNQhTMBorcdrWWQeDUtshpf4RjJT/?contract=0x8AD9FF773C918Fde2258ef85a789062963DF0C65&chainId=80001&tokenId=0&claimCountColor=%23424242&primaryColor=%23000000&secondaryColor=%23FFFFFF&primaryActiveColor=%2300000080&primaryHoverColor=%23000000CC). <br/>
+- Copy the generated ```Encoded URL```. Here's an [example](https://cloudflare-ipfs.com/ipfs/QmQ7WyTtyzxNdG6NeFg5epUMTNWuRo5VdEMUhUVU9XNqG9/?contract=0x8AD9FF773C918Fde2258ef85a789062963DF0C65&chainId=80001&tokenId=0&claimCountColor=%23424242&primaryColor=%23000000&secondaryColor=%23FFFFFF&primaryActiveColor=%2300000080&primaryHoverColor=%23000000CC). <br/>
 - Replace the URL in the ```src``` field of the embed code given by thirdweb, with the URL copied in the last step.
 ```
   <iframe
@@ -44,6 +44,8 @@ Thirdweb Embed             |  Custom Embed
 
 | Param                | Description                                                                  | Default Value                   | Required |
 |----------------------|------------------------------------------------------------------------------|---------------------------------|----------|
+| backgroundImage      | to add a background image to the embed                                       | null                            | No       |
+| backgroundRepeat     | to set the repeat mode of the background image                               | no-repeat                       | No       |
 | borderRadius         | to change the border radius of the container                                 | 15                              | No       |
 | borderColor          | to change the border color of the container                                  | rgba(0,0,0,0.1)                 | No       |
 | chainId              | to specify the chain where your contract is deployed                         | 1 (Ethereum)                    | Yes      |
@@ -60,30 +62,34 @@ Thirdweb Embed             |  Custom Embed
 | imageHeight          | to change the height of the image                                            | 178                             | No       |
 | imageWidth           | to change the width of the image                                             | 178                             | No       |
 | inventoryTitle       | to override the title text inside 'Inventory' tab                            | title in your contract          | No       |
-| inventoryImageHeight | to change the height of the image inside 'Inventory' tab                     | 318                             | No       |
-| inventoryImageWidth  | to change the width of the image inside 'Inventory' tab                      | 318                             | No       |
+| inventoryImageHeight | to change the height of the image inside 'Inventory'                         | 318                             | No       |
+| inventoryImageWidth  | to change the width of the image inside 'Inventory'                          | 318                             | No       |
 | loaderColor          | to change the color of the loader                                            | #1A202C                         | No       |
 | mintAllowedPerWallet | to specify how many NFTs can each wallet mint in total                       | 1                               | No       |
 | mintSuccessText      | to change the text shown after a successful mint                             | Minted successfully!            | No       |
-| mintText             | to change the text of the mint button                                        | Mint                            | No       |
+| mintText             | to change the text of the mint button                                        | Mint (Free)                     | No       |
 | overrideInventory    | to change the title of the 'Inventory' tab                                   | Inventory                       | No       |
 | overrideMint         | to change the title of the 'Mint' tab                                        | Mint                            | No       |
 | primaryActiveColor   | to change the active state color of primary components                       | #0369A1                         | No       |
 | primaryBorderRadius  | to change the border radius of primary components                            | 6                               | No       |
-| primaryColor         | to change the color of primary components (connect/mint button etc)          | #0EA5E9                         | No       |
+| primaryButtonMt      | to give margin top to the primary button                                     | 5                               | No       |
+| primaryColor         | to change the color of primary components (connect/mint button)              | #0EA5E9                         | No       |
 | primaryHoverColor    | to change the hover state color of primary components                        | #0284C7                         | No       |
 | secondaryColor       | to change the color of components (text, icon etc) inside primary components | #FFFFFF                         | No       |
 | relayer              | to specify relayer url to enable gasless transactions                        | null                            | No       |
-| rpcUrl               | to use a custom RPC                                                          | based on [chainId](https://github.com/Cheesetouched/thirdweb-bundle-drop-embed/blob/f413140babfff9f51f86d78dda3a1c3857e6eafa/src/utils/helper.js#L12)   | No       |
+| rpcUrl               | to use a custom RPC                                                          | based on [chainId](https://github.com/Cheesetouched/thirdweb-bundle-drop-embed/blob/f413140babfff9f51f86d78dda3a1c3857e6eafa/src/utils/helper.js#L12)              | No       |
 | showBalance          | to show balance of the connected wallet in popup                             | true                            | No       |
 | showClaimCount       | to show the counter that shows claim status                                  | true                            | No       |
 | showDescription      | to show the description text                                                 | true                            | No       |
+| showDivider          | to show the divider                                                          | true                            | No       |
+| showImage            | to show NFT image                                                            | true                            | No       |
 | showInventory        | to show the inventory tab                                                    | true                            | No       |
+| showInventoryTitle   | to show inventory title text                                                 | true                            | No       |
 | showMintIcon         | to show the diamond icon on the 'Mint' button                                | true                            | No       |
 | showRemainingMints   | to show the remaining mints in the 'Mint' tab                                | true                            | No       |
 | showThirdwebLogo     | to show the Thirdweb logo in the footer                                      | true                            | No       |
 | showTitle            | to show the title text                                                       | title in your contract          | No       |
-| showWallet           | to show the wallet when connected                                            | true                            | No       |
+| showWallet           | to show the wallet options when connected                                    | true                            | No       |
 | tabActiveTextColor   | to change the text color of the tab in active state                          | #3A3A3C                         | No       |
 | tabInactiveTextColor | to change the text color of the tab in inactive state                        | #AEAEB2                         | No       |
 | title                | to override the title text                                                   | title in your contract          | No       |
